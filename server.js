@@ -19,7 +19,8 @@ app.get("/", (req, res) => {
     {
       success: true,
       routes : {
-        provinsi : "/api/provinsi"
+        provinsi : "/api/provinsi",
+        covid19News : "/api/covidnews"
       }
     }
   )
