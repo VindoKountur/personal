@@ -1,15 +1,13 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
+const cors = require('cors');
 require('dotenv').config();
+
 const provinsi = require('./router/provinsi');
 const covidNews = require('./router/covidNews');
 
-let fetchData = async (url) => {
-    const res = await axios.get(url);
-    const data = res.data;
-    return data;
-}
+app.use(cors());
 
 app.use("/api/provinsi", provinsi);
 app.use("/api/covidnews", covidNews);
