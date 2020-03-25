@@ -1,26 +1,18 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-
+require('dotenv').config();
 const provinsi = require('./router/provinsi');
+const covidNews = require('./router/covidNews');
 
 let fetchData = async (url) => {
     const res = await axios.get(url);
     const data = res.data;
     return data;
 }
-// let tesFu  = async () => {
-//   let data = await fetchData('https://covid19.mathdro.id/api');
-//   // WORLD
-//   world = {
-//     confirmed : data.confirmed.value
-//   }
-// }
-// let world;
-
-// tesFu();
 
 app.use("/api/provinsi", provinsi);
+app.use("/api/covidnews", covidNews);
 
 app.get("/", (req, res) => {
   res.status(200).json(
