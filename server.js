@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const app = express();
+const morgan = require('morgan');
 const cors = require("cors");
 require("dotenv").config();
 
@@ -10,6 +11,7 @@ const algoritmaSaw = require("./router/saw");
 
 app.use(express.json()); // Body Parser
 app.use(cors());
+app.use(morgan('tiny'));
 
 app.use("/api/provinsi", provinsi);
 app.use("/api/covidnews", covidNews);
