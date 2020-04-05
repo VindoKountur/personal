@@ -24,7 +24,9 @@ app.get("/", (req, res) => {
     success: true,
     routes: {
       provinsi: "/api/provinsi",
-      covid19News: "/api/covidnews"
+      covid19News: "/api/covidnews",
+      lokalcovid: "api/covid/lokal",
+      provinsicovid: "api/covid/provinsi"
     }
   });
 });
