@@ -8,6 +8,7 @@ require("dotenv").config();
 const provinsi = require("./router/provinsi");
 const covidNews = require("./router/covidNews");
 const algoritmaSaw = require("./router/saw");
+const covid = require("./router/covid");
 
 app.use(express.json()); // Body Parser
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(morgan('tiny'));
 
 app.use("/api/provinsi", provinsi);
 app.use("/api/covidnews", covidNews);
+app.use("/api/covid", covid)
 app.use("/api/algoritma/saw", algoritmaSaw);
 
 app.get("/", (req, res) => {
