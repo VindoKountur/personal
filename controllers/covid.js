@@ -13,10 +13,10 @@ const toNumber = (str) => {
 exports.getDataLokal = async (req, res, next) => {
   try {
     let jumlahGlobalPositif;
-     // GlobalPositif
+    // GlobalPositif
     const globalResponse = await axios.get(urlGlobalPositif);
     jumlahGlobalPositif = toNumber(globalResponse.data.value);
-    
+
     // Lokal
     const lokalResponse = await axios.get(urlLokal);
     let { positif, sembuh, meninggal } = lokalResponse.data[0];
@@ -24,9 +24,9 @@ exports.getDataLokal = async (req, res, next) => {
     const numSembuh = toNumber(sembuh);
     const numMeninggal = toNumber(meninggal);
     const perawatan = numPositif - (numSembuh + numMeninggal);
-    const persenPositif = ((numPositif/jumlahGlobalPositif) * 100).toFixed(2);
-    const persenSembuh = ((numSembuh/numPositif) * 100).toFixed(2);
-    const persenMeninggal = ((numMeninggal/numPositif) * 100).toFixed(2);
+    const persenPositif = ((numPositif / jumlahGlobalPositif) * 100).toFixed(2);
+    const persenSembuh = ((numSembuh / numPositif) * 100).toFixed(2);
+    const persenMeninggal = ((numMeninggal / numPositif) * 100).toFixed(2);
     const tmpData = {
       positif: numPositif,
       perawatan,
@@ -34,49 +34,46 @@ exports.getDataLokal = async (req, res, next) => {
       meninggal: numMeninggal,
       persenPositif,
       persenSembuh,
-      persenMeninggal
-    }
+      persenMeninggal,
+    };
     res.json({
       success: true,
-      data: tmpData
+      data: tmpData,
     });
   } catch (err) {
     res.json({
       success: false,
       message: "error getting data",
-      err
+      err,
     });
   }
-  
- 
-  
 };
 
 exports.getDataProvinsi = (req, res, next) => {
-  let provinsi = {
-    nama: [],
-    positif: [],
-    sembuh: [],
-    meninggal: []
-  };
-  axios.get(urlProvinsi)
-    .then(response => {
-      response.data.map(value => {
-        provinsi.nama = [...provinsi.nama, value.attributes.Provinsi];
-        provinsi.positif = [...provinsi.positif, value.attributes.Kasus_Posi];
-        provinsi.sembuh = [...provinsi.sembuh, value.attributes.Kasus_Semb];
-        provinsi.meninggal = [...provinsi.meninggal, value.attributes.Kasus_Meni];
+  let provinsi = [];
+  axios
+    .get(urlProvinsi)
+    .then((response) => {
+      response.data.map((value) => {
+        const newProvinsi = {
+          id: provinsi.length + 1,
+          nama: value.attributes.Provinsi,
+          positif: value.attributes.Kasus_Posi,
+          sembuh: value.attributes.Kasus_Semb,
+          meninggal: value.attributes.Kasus_Meni,
+        };
+        provinsi = [...provinsi, newProvinsi];
       });
       res.status(200).json({
         success: true,
-        data: provinsi
+        data: provinsi,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.json({
         success: false,
         message: "error getting data",
-        err
+        err,
       });
-    })
-}
+    });
+};
