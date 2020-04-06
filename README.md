@@ -17,7 +17,7 @@ Basically to make my life more easy :)
 
 * [Hitung Algoritma SAW (pembelian laptop)](https://algoritmasawbelilaptop.netlify.com/)
 
-* [3rd PT Api for kawalcorona](#)
+* [3rd PT Api for kawalcorona](https://cekcovid.netlify.com/)
 
   Link Data Jumlah Positif, Sembuh, Meninggal (/api/covid/lokal)
 
